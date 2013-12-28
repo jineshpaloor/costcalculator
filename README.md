@@ -1,0 +1,8 @@
+TECHNOLOGY STACK
+===============
+
+    * NODE JS
+    * EXPRESS ( NODEJS FRAMEWORK )
+    * MONGODB ( NOSQL DATABASE )
+    * JADE ( TEMPLATING LIBRARY )
+    * MONK 

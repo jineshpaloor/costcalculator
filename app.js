@@ -9,7 +9,20 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
+//mongodb
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/costcalculator');
+
 var app = express();
+
+function checkAuth(req, res, next) {
+  if (!req.session.user_id) {
+    res.send('You are not authorized to view this page');
+  } else {
+    next();
+  }
+};
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -31,8 +44,21 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/auth', routes.auth);
+app.get('/login', routes.auth);
+app.get('/message', routes.message);
+app.post('/login', routes.login(db));
+app.post('/signup', routes.signup(db));
+app.get('/userlist', routes.userlist(db));
+app.get('/logout', function (req, res) {
+  delete req.session.user_id;
+  res.redirect('/login');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}

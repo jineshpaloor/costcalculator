@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  input#login-button(type="button", value="Login")
+  input#signup-button(type="button", value="Signup")
+
+  #login-div
+    form#loginForm(name="loginform",method="post",action="/login")
+      input#inputUserName(type="text", placeholder="email", name="email")
+      input#inputUserPassword(type="password", placeholder="password", name="password")
+      button#btnSubmit(type="submit") submit
+
+  #signup-div.hide
+    form#signupForm(name="signupform",method="post",action="/signup")
+      input#inputUserName(type="text", placeholder="name", name="name")
+      input#inputUserEmail(type="text", placeholder="email", name="email")
+      input#inputUserMobile(type="text", placeholder="mobile", name="mobile")
+      input#inputUserCompany(type="text", placeholder="company", name="company")
+      input#inputUserLocation(type="text", placeholder="location", name="location")
+      button#btnSubmit(type="submit") submit
